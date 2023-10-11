@@ -425,11 +425,6 @@ void TestNoncoiableResize()
     cout << "Test noncopiable resize" << endl;
     SimpleVector<X> v;
     v.Resize(5);
-    for (auto it = v.begin(); it != v.end(); it++)
-    {
-        std::cout << it->GetX() << " ";
-    }
-    //
     bool flag = std::all_of(v.begin(), v.end(), [](const X& item) { return item.GetX() == 5; });
     assert(flag);
     cout << "Done!" << endl << endl;
