@@ -31,6 +31,7 @@ public:
 
     ~ArrayPtr() {
         delete[] raw_ptr_;
+        raw_ptr_ = nullptr;
     }
 
     // Запрещаем присваивание
@@ -38,7 +39,7 @@ public:
 
     ArrayPtr& operator=(ArrayPtr&& array) {
         if(this != &array){
-            raw_ptr_ = std::exchange(array.raw_ptr_, nullptr);
+            std::swap(raw_ptr_,array.raw_ptr_);
         }
         return *this;
     }

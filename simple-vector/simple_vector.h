@@ -129,7 +129,6 @@ public:
         ArrayPtr<Type> new_array(new_capacity);
         std::copy(&items_[0], &items_[size_], &new_array[0]);
         items_.swap(new_array);
-        (void)new_array.Release();
         capacity_ = new_capacity;
     }
     // Изменяет размер массива.
