@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include<algorithm>
@@ -299,14 +298,15 @@ public:
             std::destroy_n(data_.GetAddress(), this->size_);
             data_.Swap(new_data);
         }
-
-        auto& last_value = *(this->end() - 1);
-
-        new(this->end()) T(std::forward<T>(last_value));
-        std::move_backward(this->begin() + offset, this->end(), this->end() + 1);
-        *(this->begin() + offset) = T(std::forward<Args>(args)...);
-
-
+        if (size_ != 0) {
+            auto& last_value = *(this->end() - 1);
+            new(this->end()) T(std::forward<T>(last_value));
+            std::move_backward(this->begin() + offset, this->end(), this->end() + 1);
+            *(this->begin() + offset) = T(std::forward<Args>(args)...);
+        }
+        else {
+            new(this->begin() + offset) T(std::forward<Args>(args)...);
+        }
         size_++;
         return this->begin() + offset;
     }
